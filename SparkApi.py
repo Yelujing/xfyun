@@ -14,7 +14,6 @@ from wsgiref.handlers import format_date_time
 import websocket  # 使用websocket_client
 
 answer = ""
-content = ""
 
 
 # 构造方法，用于获得密钥
@@ -87,7 +86,6 @@ def run(ws, *args):
 
 # 收到websocket消息的处理
 def on_message(ws, message):
-    global content
     # print(message)
     data = json.loads(message)
     code = data['header']['code']

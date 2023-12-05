@@ -50,41 +50,42 @@ def getText(role, content):
 if __name__ == '__main__':
 
     # 全局变量
-    # answer = ""
-    # question = []
+    answer = ""
+    question = []
 
 
     # 发送问题的函数
     def send_question():
-        # global answer, question
-        # user_input = entry.get()  # 获取用户输入的问题
-        # question.append({"role": "user", "content": user_input})
-        # SparkApi.answer = ""  # 清空答案
-        # SparkApi.main(appid, api_key, api_secret, Spark_url, domain, question)  # 发送问题
-        # question.pop()  # 移除已发送的问题
-        # entry.delete(0, tk.END)  # 清空用户输入
-        # update_answer()
-
-        question = checklen(getText("user", entry.get()))   # 获取用户输入的问题
+        global answer, question
+        user_input = entry.get()  # 获取用户输入的问题
+        question.append({"role": "user", "content": user_input})
         SparkApi.answer = ""  # 清空答案
-        entry.delete(0, tk.END)  # 清空用户输入
         SparkApi.main(appid, api_key, api_secret, Spark_url, domain, question)  # 发送问题
-        getText("assistant", SparkApi.answer)  # 存储回答
-        text.config(state=tk.NORMAL)
-        text.insert(tk.END, f"\n星火: {SparkApi.content}\n")  # 在文本框中显示答案
-        text.config(state=tk.DISABLED)
-        text.see(tk.END)  # 将滚动条移动到最后显示最新的答案
+        question.pop()  # 移除已发送的问题
+        entry.delete(0, tk.END)  # 清空用户输入
+        update_answer()
+
+        # question = checklen(getText("user", entry.get()))   # 获取用户输入的问题
+        # SparkApi.answer = ""  # 清空答案
+        # entry.delete(0, tk.END)  # 清空用户输入
+        # SparkApi.main(appid, api_key, api_secret, Spark_url, domain, question)  # 发送问题
+        # getText("assistant", SparkApi.answer)  # 存储回答
+        # text.config(state=tk.NORMAL)
+        # text.insert(tk.END, f"\n星火: {SparkApi.content}\n")  # 在文本框中显示答案
+        # text.config(state=tk.DISABLED)
+        # text.see(tk.END)  # 将滚动条移动到最后显示最新的答案
+
 
     # 更新答案文本框
-    # def update_answer():
-    #     global answer
-    #     # text.delete("1.0", tk.END)  # 清空文本框内容
-    #     if SparkApi.answer != answer:  # 检查是否有新的答案
-    #         answer = SparkApi.answer
-    #         text.config(state=tk.NORMAL)
-    #         text.insert(tk.END, f"\n星火: {answer}\n")  # 在文本框中显示答案
-    #         text.config(state=tk.DISABLED)
-    #         text.see(tk.END)  # 将滚动条移动到最后显示最新的答案
+    def update_answer():
+        global answer
+        # text.delete("1.0", tk.END)  # 清空文本框内容
+        if SparkApi.answer != answer:  # 检查是否有新的答案
+            answer = SparkApi.answer
+            text.config(state=tk.NORMAL)
+            text.insert(tk.END, f"\n星火: {answer}\n")  # 在文本框中显示答案
+            text.config(state=tk.DISABLED)
+            text.see(tk.END)  # 将滚动条移动到最后显示最新的答案
 
 
     # 主窗口
